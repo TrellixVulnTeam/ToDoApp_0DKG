@@ -1,0 +1,11 @@
+{% extends 'todolists/todolists_base.html' %}
+
+{% block subtitle %}New List{% endblock %}
+
+{% block subcontent %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        <button type="submit" class="btn btn-primary">Create List</button>
+    </form>
+{% endblock %}

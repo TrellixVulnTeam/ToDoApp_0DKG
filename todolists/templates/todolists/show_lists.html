@@ -1,0 +1,11 @@
+{% extends 'todolists/todolists_base.html' %}
+
+{% block subtitle %}Todo Lists{% endblock %}
+
+{% block subcontent %}
+    <ul class="list-group">
+        {% for list in todolists %}
+            <li class="list-group-item"><a href="{% url 'todolists:list_detail' list.id %}">{{ list.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

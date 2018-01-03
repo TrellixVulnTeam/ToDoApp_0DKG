@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/normalize.css" %}">
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <title>{% block title %}To Do{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+    <div id="sticky-footer-page-wrap">
+        <nav class="navbar navbar-expand-sm" id="main-nav">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'todolists:home' %}">To Do</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainMenu">
+                {% if user.is_authenticated %}
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="{% url 'todolists:show_lists' %}">My Lists</a></li>
+                    <li class="nav-item"><a href="{% url 'todolists:new_list' %}">New List</a></li>
+                    <li class="nav-item"><a href="{% url 'accounts:logout' %}">Sign out</a></li>
+                    <li class="nav-item nav-username">{{ user.username }}</li>
+                  </ul>
+                {% else %}
+                    <form class="form-inline ml-auto">
+                      <a href="{% url 'accounts:login' %}" class="btn btn-outline-light">Log in</a>
+                      <a href="{% url 'accounts:signup' %}" class="btn btn-outline-light ml-2">Sign up</a>
+                    </form>
+                {% endif %}
+            </div>
+          </div>
+        </nav>
+
+    {% if message %}
+        <div id="message-container">
+            <p>{{ message }}</p>
+        </div>
+    {% endif %}
+
+        <div id="main-content-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div><!-- main content wrapper -->
+
+    </div> <!-- sticky footer page wrap -->
+
+    <footer id="main-footer">
+        <p>© 2017 Rik Schoonbeek. All rights reserved.</p>
+        <p>Rik Schoonbeek is a freelance Web Developer in Utrecht, The Netherlands.</p>
+    </footer>
+{% endblock body %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
